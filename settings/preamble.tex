@@ -5,7 +5,7 @@ times % use Times font as main
 ]{disser}
 
 % Кодировка и язык
-\usepackage[T2A]{fontenc} % поддержка кириллицы
+\usepackage[T2A, T1]{fontenc} % поддержка кириллицы
 \usepackage[utf8]{inputenc} % кодировка исходного текста
 \usepackage[english,russian]{babel} % переключение языков
 
@@ -37,6 +37,10 @@ times % use Times font as main
 \usepackage[onehalfspacing]{setspace} % полуторный интервал
 \usepackage{fancyhdr} % установка колонтитулов
 \usepackage{listings} % поддержка вставки исходного кода
+
+\usepackage{tikz} % блок схема
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usepackage{graphicx}
 
 % Установка шрифта Times New Roman
 \renewcommand{\rmdefault}{ftm}

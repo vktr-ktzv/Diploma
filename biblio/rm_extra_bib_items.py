@@ -34,15 +34,15 @@ def process_bib_file(bib_file, citations):
         bibtexparser.dump(bib_database, f)
 
 def main():
-    bib_file = "bibliography.bib"
-    tex_directory = "../chapters"
+    # bib_file = "bibliography.bib"
+    # tex_directory = "../chapters"
 
-    tex_files = find_tex_files(tex_directory)
-    print(f"Searching for citations in files: {', '.join(map(str, tex_files))}")
-    citations = find_citations(tex_files)
-    print(f"Number of citations found: {len(citations)}")
-    print(f"Found citations: {', '.join(citations)}")
-    process_bib_file(bib_file, citations)
+    # tex_files = find_tex_files(tex_directory)
+    # print(f"Searching for citations in files: {', '.join(map(str, tex_files))}")
+    # citations = find_citations(tex_files)
+    # print(f"Number of citations found: {len(citations)}")
+    # print(f"Found citations: {', '.join(citations)}")
+    # process_bib_file(bib_file, citations)
 
 if __name__ == '__main__':
     main()
