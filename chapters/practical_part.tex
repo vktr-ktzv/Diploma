@@ -1,22 +1,136 @@
+% \newpage
+% \begin{center}
+%   \textbf{\large 5. Экспериментальное исследование разработанной двухотсчетной следящей системы}
+% \end{center}
+% \refstepcounter{chapter}
+% \addcontentsline{toc}{chapter}{5. Экспериментальное исследование разработанной двухотсчетной следящей системы}
+
+
+% \subsection{Структурная схема установки}
+% Стенд (рис. \ref{STND-ISP}) представляет собой замкнутую электромеханическую систему, включающую:
+% \begin{enumerate}
+%     \item \textbf{Испытуемый модуль}: Блок АЦПВТ
+%     \item \textbf{Отладочный двухканальный стенд}
+%     \item \textbf{Эталонный измеритель}: Абсолютный энкодер Siemens 6FX2001-5HE25 
+%     \item \textbf{Исполнительное устройство}: Асинхронный двигатель АИР56А4У3 
+%     \item \textbf{Система управления}: Программируемый логический контроллер Siemens Sinamics S120
+% \end{enumerate}
+
+% \begin{figure}[!h]
+%   \centering
+%   \begin{subfigure}[b]{0.6\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{STND-01.jpg} 
+%     \label{STND01}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[b]{0.35\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{STND-02.jpg} 
+%     \label{STND02}
+%   \end{subfigure}
+
+%   \caption{Испытательный стенд}
+%   \label{STND-ISP} 
+% \end{figure}
+
+
+
+% \subsection{Методика проведения испытаний}
+% Экспериментальные исследования включали три серии тестов:
+% \begin{enumerate}
+%     \item \textbf{Статическая точность}: Измерение погрешности при фиксированных углах с шагом $5^\circ$ в диапазоне $0^\circ-360^\circ$
+%     \item \textbf{Динамические характеристики}: Анализ переходных процессов при угловых ускорениях и торможениях от $0^\circ/\text{с} до 30^\circ/\text{с}$ 
+%     за время $0.1 - 1 \text{c}$ 
+% \end{enumerate}
+
+% Для каждого теста фиксировались следующие параметры:
+% \begin{itemize}
+%     \item Максимальная абсолютная погрешность $\varepsilon_{max}$
+%     \item Среднеквадратическое отклонение $\sigma_\theta$
+% \end{itemize}
+
+% \subsection{Программная реализация}
+% Управление стендом осуществлялось через специализированное ПО, разработанное инженерами компании в среде LabView, обеспечивающее:
+% \begin{itemize}
+%     \item Управление электродвигателем 
+%     \item Сбор данных с эталонного датчика частотой 50 кГц
+%     \item Сбор данных с исследуемого блока АЦПВТ
+% \end{itemize}
+
+
 \newpage
 \begin{center}
-  \textbf{\large 4. Экспериментальное исследование разработанной двухотсчетной следящей системы}
+  \textbf{\large 5.  Экспериментальное исследование разработанной двухотсчетной следящей системы}
 \end{center}
 \refstepcounter{chapter}
-\addcontentsline{toc}{chapter}{4. Экспериментальное исследование разработанной двухотсчетной следящей системы}
+\addcontentsline{toc}{chapter}{5. ЭКСПЕРИМЕНТАЛЬНОЕ ИССЛЕДОВАНИЕ ДВУХОТСЧЕТНОЙ СЛЕДЯЩЕЙ СИСТЕМЫ}
+
+\section{Конфигурация испытательного стенда}
+Экспериментальные исследования проводились на специализированном стенде (рис. \ref{STND-ISP}), представляющем замкнутую электромеханическую систему 
+со следующей структурой:
+\begin{enumerate}
+    \item \textbf{Исследуемый модуль}: Блок аналого-цифрового преобразователя вращательного трансформатора (АЦП ВТ)
+    \item \textbf{Измерительная подсистема}: Двухканальный отладочный комплекс
+    \item \textbf{Эталонный датчик положения}: Абсолютный энкодер Siemens 6FX2001-5HE25 (разрешение 21 бит, погрешность $\pm0.01^\circ$)
+    \item \textbf{Исполнительный механизм}: Асинхронный двигатель АИР56А4У3 
+    \item \textbf{Управляющее устройство}: Программируемый логический контроллер Siemens Sinamics S120
+\end{enumerate}
+
+
+\begin{figure}[!h]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{STND-01.jpg} 
+    \label{STND01}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{STND-02.jpg} 
+    \label{STND02}
+  \end{subfigure}
+
+  \caption{Испытательный стенд}
+  \label{STND-ISP} 
+\end{figure}
+
+\FloatBarrier
+\section{Методология эксперимента}
+Исследование включало две серии испытаний:
+
+\begin{enumerate}
+    \item \textbf{Статические характеристики}: 
+    \begin{itemize}
+        \item Определение статической погрешности позиционирования
+        \item Фиксация показаний при дискретных углах $\theta_i$ с шагом $5^\circ$ ($i = 1, 2, \dots, 72$) в диапазоне $0^\circ \leq \theta \leq 360^\circ$
+    \end{itemize}
+    
+    \item \textbf{Динамические характеристики}:
+    \begin{itemize}
+        \item Анализ погрешности при постоянной сткорости до $\omega = 30^\circ/\text{с}$
+        \item Анализ переходных процессов при ускорениях до $\dot{\omega} = 300^\circ/\text{с}^2$
+    \end{itemize}
+\end{enumerate}
+
+Для каждой серии регистрировались:
+\begin{itemize}
+    \item Максимальная абсолютная погрешность $\varepsilon_{\max} = \max|\theta_{\text{эт}} - \theta_{\text{изм}}|$
+    \item Среднеквадратическое отклонение $\sigma_\theta = \sqrt{\frac{1}{n-1}\sum_{k=1}^{n}(\theta_k - \bar{\theta})^2}$
+    \item Динамическая ошибка слежения $\delta(t) = \theta_{\text{зад}}(t) - \theta_{\text{изм}}(t)$
+\end{itemize}
+
+\subsection{Программно-аппаратный комплекс}
+Управление испытаниями осуществлялось специализированным ПО (LabVIEW 2021, National Instruments), обеспечивающим:
+\begin{itemize}
+    \item Генерацию управляющих воздействий на электропривод
+    \item Сбор данных с частотой дискретизации 100 Гц
+    \item Корреляционный анализ сигналов эталонного и тестируемого каналов=
+\end{itemize}
 
 \section{Конечная точность следящей системы с астатизмом первого порядка}
 % (измеряем точность показаний схемы в установившемся режиме).
 
 % \section{Конечная точность следящей системы с астатизмом второго порядка} % http://zrv.ivo.unn.ru/pages/vtp/6/6-1-sistemy-avtomaticheskogo-upravleniya.htm
-
-
-% \label{PRIMe-SecIntroduction}
-
-
-% \section{Методы}
-% \label{PRIMe-SecMethods}
-
-% \subsection{Алгоритм кластеризации данных DBSCAN как классификатор частиц в двухфазных системах}
-% \label{PRIMe-SubSecDBSCAN}
 
