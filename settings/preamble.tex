@@ -31,6 +31,7 @@ times % use Times font as main
 \usepackage{hyperref} % создание гиперссылок
 
 \usepackage{enumitem}
+\setlist[enumerate,1]{label=\thechapter.\arabic*}
 % Прочее
 \usepackage{color} % работа с цветом
 \usepackage{epstopdf} % конвертация eps в pdf
@@ -44,6 +45,12 @@ times % use Times font as main
 \usepackage{tikz} % блок схема
 \usetikzlibrary{shapes, arrows, positioning, calc}
 \usepackage{graphicx}
+
+\usepackage{booktabs} % Для профессиональных таблиц
+\usepackage{makecell} % Для многострочных ячеек
+\usepackage{multirow} % Для объединения строк
+\usepackage{siunitx} % Для форматирования единиц измерения
+\usepackage{geometry} % Для настройки полей
 
 % Установка шрифта Times New Roman
 \renewcommand{\rmdefault}{ftm}
