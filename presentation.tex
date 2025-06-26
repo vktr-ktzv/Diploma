@@ -108,7 +108,7 @@
 \begin{block}{}
 \begin{itemize}\tiny
 \item Необходимость глобального спутникового интернета
-\item Низкоорбитальные группировки → высокоточное позиционирование антенн ( $ \pm 2'$, $\omega=30^\circ$/с)
+\item Низкоорбитальные группировки → высокоточное позиционирование антенн 
 \item Сложные условия эксплуатации
 \end{itemize}
 \end{block}
@@ -122,7 +122,7 @@
 
 \column{0.5\textwidth}
 \begin{block}{}
-Разработка и реализация программно-аппаратного комплекса для высокоточного (±2') 
+Разработка и реализация программно-аппаратного комплекса для высокоточного 
 измерения углового положения антенны
 \end{block}
 
@@ -145,7 +145,7 @@ Cопровождение & Непрерывное в течение сеанс�
 \end{frame}
 
 
-\begin{frame}{Анализ датчиков}
+\begin{frame}{Анализ и выбор датчиков}
 \centering
 \begin{tabular}{lccc}
 \toprule
@@ -166,30 +166,6 @@ Cопровождение & Непрерывное в течение сеанс�
 \includegraphics[width=0.6\textwidth]{ЛИР-ДР158A.jpg}
 \end{frame}
 
-\begin{frame}{Аппаратная платформа АЦПВТ}
-\begin{figure}
-  \includegraphics[width=\textwidth]{аппаратная_схема.png}
-  \caption{Аппаратная реализация модуля}
-\end{figure}
-\end{frame}
-
-% \begin{block}{Ключевые компоненты}
-% \begin{itemize}
-% \item Микроконтроллер: STM32F7 (Cortex-M7)
-% \item Генерация возбуждения: ЦАП AD5331 → Усилители LM8261
-% \item Оцифровка: 4× АЦП AD7492 (12-бит, 1.5 MSPS)
-% \item Синхронизация: Каскад таймеров 
-% \item Интерфейс: SSI (18 бит, код Грея, 100 кГц)
-% \end{itemize}
-% \end{block}
-
-\begin{frame}{Аппаратная синхронизация таймеров}
-\begin{figure}
-  \includegraphics[width=\textwidth]{TimersScheme1.png}
-  \caption{Схема синхронизации таймеров}
-\end{figure}
-\end{frame}
-
 \begin{frame}{Взаимодействие с ВТ}
 \begin{columns}
   \column{0.48\textwidth}
@@ -208,7 +184,37 @@ Cопровождение & Непрерывное в течение сеанс�
 \end{columns}
 \end{frame}
 
+\begin{frame}{Аппаратная синхронизация таймеров}
+\begin{figure}
+  \includegraphics[width=\textwidth]{TimersScheme1.png}
+  \caption{Схема синхронизации таймеров}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Аппаратная платформа АЦПВТ}
+\begin{figure}
+  \includegraphics[width=\textwidth]{аппаратная_схема.png}
+  \caption{Аппаратная реализация модуля}
+\end{figure}
+\end{frame}
+
+
+% \begin{frame}{Прямое преобразование}
+% \begin{equation}
+% \theta = \arctan\left(\frac{U_{\sin}}{U_{\cos}}\right).
+% \end{equation}
+% \end{frame}
+
 \begin{frame}{Алгоритм следящего преобразования}
+
+  \begin{block}{Математическая модель:}
+  \begin{itemize}
+
+  \item $\varepsilon = V sin(\omega t) sin(\phi) \cos(\phi') - V sin(\omega t) cos(\phi) \sin(\phi') = \newline = V \sin(\omega t) \sin(\phi - \phi')  \approx V \sin(\omega t) (\phi - \phi') $ 
+
+  \item $\phi'(t) = K_i \int_0^t \varepsilon(\tau) d\tau + \phi_0'$ 
+\end{itemize}
+\end{block}
 
 % \column{0.5\textwidth}
 \begin{figure}[ht]
@@ -236,7 +242,7 @@ Cопровождение & Непрерывное в течение сеанс�
   % Сигналы
   \node[left=of multSin] (inputSin) {$ V sin(\omega t) sin(\phi)$};
   \node[left=of multCos] (inputCos) {$ V sin(\omega t) cos(\phi)$};
-  \node[right=of integrator] (output) {$\omega$};
+  \node[right=of integrator] (output) {$\phi'$};
   
   % Обратная связь: phi' к умножителям
   \coordinate (feedback) at ($(integrator.east)!0.5!(output.west)$);
@@ -258,7 +264,7 @@ Cопровождение & Непрерывное в течение сеанс�
   
   \end{tikzpicture}
   } % Конец resizebox
-  \caption{Схема следящего преобразователя с обратной связью} % Красные пунктирные линии показывают передачу оценки угла $\phi'$ обратно в умножители.
+  %\caption{Схема следящего преобразователя с обратной связью} % Красные пунктирные линии показывают передачу оценки угла $\phi'$ обратно в умножители.
   \label{fig:tracking_scheme}
   
   \end{figure}
@@ -329,7 +335,7 @@ Cопровождение & Непрерывное в течение сеанс�
     % Nodes
     \node (i_n)[draw, ellipse]  {i = 0; n = 0}; %[below of=phi]
     \node (check)[below of=i_n, yshift=-1cm][draw, rectangle]{ \( \left| \frac{(\phi_\text{г} + 360 \cdot i)}{k_\text{г}} - \frac{(\phi_\text{т} + 360 \cdot n)}{k_\text{т}} \right| \leq \Delta \phi?  \) }; %[below of=i_n]
-    \node (phi_update) [right of=check, xshift=6cm][draw, rectangle] {\(\phi_\text{т} = \frac{\phi_\text{г} + 360 \cdot n}{k_\text{т}} \) };
+    \node (phi_update) [right of=check, xshift=6cm][draw, rectangle] {\(\phi = \frac{\phi_\text{т} + 360 \cdot n}{k_\text{т}} \) };
     \node (n_less_kt) [below of=check, yshift=-1cm][draw, ellipse] {\( n < k_\text{т} ?\)};
     \node (n_increment) [left of=n_less_kt, xshift=-3cm] {\( n++\)};
     \node (i_less_kg) [below of = n_less_kt, yshift=-1cm] [draw, ellipse] {\( i < k_\text{г}\)};
@@ -364,30 +370,16 @@ Cопровождение & Непрерывное в течение сеанс�
 \end{frame}
 
 
-% \begin{frame}{Экспериментальный стенд}
-% \centering
-
-
-% \begin{block}{Компоненты стенда}
-% \begin{itemize}
-% \item Блок АЦПВТ
-% \item 2× ВТ ЛИР-ДР158А с редуктором 1:36
-% \item Эталонный энкодер: Siemens 6FX2001-5HE (±0.01°)
-% \item Электропривод: АИР56A4У3
-% \item ПЛК: Siemens S7-1500
-% \end{itemize}
-% \end{block}
-% \end{frame}
+\begin{frame}{Структурная схема экспериментального стенда}
+  \centering
+\includegraphics[width=\textwidth]{Test_Stand_SCH.png}
+\end{frame}
 
 \begin{frame}{Экспериментальный стенд}
   \centering
 \includegraphics[width=\textwidth]{STND-02-comp.jpg}
 \end{frame}
 
-\begin{frame}{Структурная схема экспериментального стенда}
-  \centering
-\includegraphics[width=\textwidth]{Test_Stand_SCH.png}
-\end{frame}
 
 \begin{frame}{Результаты испытаний}
 \includegraphics[width=\textwidth]{Figure_1.png}
@@ -408,20 +400,6 @@ Cопровождение & Непрерывное в течение сеанс�
 \item Экспериментально подтверждена точность
 \end{enumerate}
 \end{block}
-
-% \textbf{Преимущества системы:}
-% \begin{itemize}
-% \item \textbf{Надежность}: ВТ вместо оптических энкодеров
-% \item \textbf{Точность}: ±1' против ±5' у промышленных ВТ
-% \item \textbf{Стоимость}: STM32 + Общепром. ВТ
-% \item \textbf{Устойчивость}: Широкий климатический диапазон
-% \end{itemize}
-
-% \textbf{Перспективы:}
-% \begin{itemize}
-% \item Испытания при угловом ускорении
-% \item Применение в робототехнике и ЧПУ
-% \end{itemize}
 \end{frame}
 
 \begin{frame}
